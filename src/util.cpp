@@ -18,10 +18,10 @@
     Remove the leading slash from path if needed
     Use gamename as base directory if specified
 */
-std::string Util::makeFilepath(const std::string& directory, const std::string& path, const std::string& gamename, std::string subdirectory, const unsigned int& platformId, const std::string& dlcname)
+std::string Util::makeFilepath(const std::string& directory, const std::string& path, const std::string& gamename, std::string subdirectory, const unsigned int& platformId, const std::string& dlcname, const std::string& gametitle, const std::string& dlctitle)
 {
     std::string dir = directory + makeRelativeFilepath(path, gamename, subdirectory);
-    Util::filepathReplaceReservedStrings(dir, gamename, platformId, dlcname);
+    Util::filepathReplaceReservedStrings(dir, gamename, platformId, dlcname, gametitle, dlctitle);
     return dir;
 }
 
@@ -332,14 +332,17 @@ int Util::replaceString(std::string& str, const std::string& to_replace, const s
     return 1;
 }
 
-void Util::filepathReplaceReservedStrings(std::string& str, const std::string& gamename, const unsigned int& platformId, const std::string& dlcname)
+void Util::filepathReplaceReservedStrings(std::string& str, const std::string& gamename, const unsigned int& platformId, const std::string& dlcname, const std::string& gametitle, const std::string& dlctitle)
 {
     std::string platform;
+    std::string platformCap;
+
     for (unsigned int i = 0; i < GlobalConstants::PLATFORMS.size(); ++i)
     {
         if ((platformId & GlobalConstants::PLATFORMS[i].id) == GlobalConstants::PLATFORMS[i].id)
         {
             platform = boost::algorithm::to_lower_copy(GlobalConstants::PLATFORMS[i].str);
+            platformCap = GlobalConstants::PLATFORMS[i].str;
             break;
         }
     }
@@ -352,8 +355,11 @@ void Util::filepathReplaceReservedStrings(std::string& str, const std::string& g
     }
 
     while (Util::replaceString(str, "%gamename%", gamename));
+    while (Util::replaceString(str, "%gametitle%", gametitle));
     while (Util::replaceString(str, "%dlcname%", dlcname));
+    while (Util::replaceString(str, "%dlctitle%", dlctitle));
     while (Util::replaceString(str, "%platform%", platform));
+    while (Util::replaceString(str, "%platformcapitalized%", platformCap));
     while (Util::replaceString(str, "//", "/")); // Replace any double slashes with single slash
 }
 

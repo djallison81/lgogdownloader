@@ -82,67 +82,67 @@ void gameDetails::makeFilepaths(const DirectoryConfig& config)
     std::string filepath;
     std::string directory = config.sDirectory + "/" + config.sGameSubdir + "/";
     std::string subdir;
-    this->serialsFilepath = Util::makeFilepath(directory, "serials.txt", this->gamename, subdir, 0);
-    this->changelogFilepath = Util::makeFilepath(directory, "changelog_" + gamename + ".html", this->gamename, subdir, 0);
+    this->serialsFilepath = Util::makeFilepath(directory, "serials.txt", this->gamename, subdir, 0, "", this->title);
+    this->changelogFilepath = Util::makeFilepath(directory, "changelog_" + gamename + ".html", this->gamename, subdir, 0, "", this->title);
 
     for (unsigned int i = 0; i < this->installers.size(); ++i)
     {
         subdir = config.bSubDirectories ? config.sInstallersSubdir : "";
-        filepath = Util::makeFilepath(directory, this->installers[i].path, this->gamename, subdir, this->installers[i].platform);
+        filepath = Util::makeFilepath(directory, this->installers[i].path, this->gamename, subdir, this->installers[i].platform, "", this->title);
         this->installers[i].setFilepath(filepath);
     }
 
     for (unsigned int i = 0; i < this->extras.size(); ++i)
     {
         subdir = config.bSubDirectories ? config.sExtrasSubdir : "";
-        filepath = Util::makeFilepath(directory, this->extras[i].path, this->gamename, subdir, 0);
+        filepath = Util::makeFilepath(directory, this->extras[i].path, this->gamename, subdir, 0, "", this->title);
         this->extras[i].setFilepath(filepath);
     }
 
     for (unsigned int i = 0; i < this->patches.size(); ++i)
     {
         subdir = config.bSubDirectories ? config.sPatchesSubdir : "";
-        filepath = Util::makeFilepath(directory, this->patches[i].path, this->gamename, subdir, this->patches[i].platform);
+        filepath = Util::makeFilepath(directory, this->patches[i].path, this->gamename, subdir, this->patches[i].platform, "", this->title);
         this->patches[i].setFilepath(filepath);
     }
 
     for (unsigned int i = 0; i < this->languagepacks.size(); ++i)
     {
         subdir = config.bSubDirectories ? config.sLanguagePackSubdir : "";
-        filepath = Util::makeFilepath(directory, this->languagepacks[i].path, this->gamename, subdir, 0);
+        filepath = Util::makeFilepath(directory, this->languagepacks[i].path, this->gamename, subdir, 0, "", this->title);
         this->languagepacks[i].setFilepath(filepath);
     }
 
     for (unsigned int i = 0; i < this->dlcs.size(); ++i)
     {
         subdir = config.bSubDirectories ? config.sDLCSubdir + "/" + config.sInstallersSubdir : "";
-        this->dlcs[i].serialsFilepath = Util::makeFilepath(directory, "serials.txt", this->gamename, subdir, 0);
-        this->dlcs[i].changelogFilepath = Util::makeFilepath(directory, "changelog_" + this->dlcs[i].gamename + ".html", this->gamename, subdir, 0);
+        this->dlcs[i].serialsFilepath = Util::makeFilepath(directory, "serials.txt", this->gamename, subdir, 0, "", this->title);
+        this->dlcs[i].changelogFilepath = Util::makeFilepath(directory, "changelog_" + this->dlcs[i].gamename + ".html", this->gamename, subdir, 0, "", this->title);
         for (unsigned int j = 0; j < this->dlcs[i].installers.size(); ++j)
         {
             subdir = config.bSubDirectories ? config.sDLCSubdir + "/" + config.sInstallersSubdir : "";
-            filepath = Util::makeFilepath(directory, this->dlcs[i].installers[j].path, this->gamename, subdir, this->dlcs[i].installers[j].platform, this->dlcs[i].gamename);
+            filepath = Util::makeFilepath(directory, this->dlcs[i].installers[j].path, this->gamename, subdir, this->dlcs[i].installers[j].platform, this->dlcs[i].gamename, this->title, this->dlcs[i].title);
             this->dlcs[i].installers[j].setFilepath(filepath);
         }
 
         for (unsigned int j = 0; j < this->dlcs[i].patches.size(); ++j)
         {
             subdir = config.bSubDirectories ? config.sDLCSubdir + "/" + config.sPatchesSubdir : "";
-            filepath = Util::makeFilepath(directory, this->dlcs[i].patches[j].path, this->gamename, subdir, this->dlcs[i].patches[j].platform, this->dlcs[i].gamename);
+            filepath = Util::makeFilepath(directory, this->dlcs[i].patches[j].path, this->gamename, subdir, this->dlcs[i].patches[j].platform, this->dlcs[i].gamename, this->title, this->dlcs[i].title);
             this->dlcs[i].patches[j].setFilepath(filepath);
         }
 
         for (unsigned int j = 0; j < this->dlcs[i].extras.size(); ++j)
         {
             subdir = config.bSubDirectories ? config.sDLCSubdir + "/" + config.sExtrasSubdir : "";
-            filepath = Util::makeFilepath(directory, this->dlcs[i].extras[j].path, this->gamename, subdir, 0, this->dlcs[i].gamename);
+            filepath = Util::makeFilepath(directory, this->dlcs[i].extras[j].path, this->gamename, subdir, 0, this->dlcs[i].gamename, this->title, this->dlcs[i].title);
             this->dlcs[i].extras[j].setFilepath(filepath);
         }
 
         for (unsigned int j = 0; j < this->dlcs[i].languagepacks.size(); ++j)
         {
             subdir = config.bSubDirectories ? config.sDLCSubdir + "/" + config.sLanguagePackSubdir : "";
-            filepath = Util::makeFilepath(directory, this->dlcs[i].languagepacks[j].path, this->gamename, subdir, 0, this->dlcs[i].gamename);
+            filepath = Util::makeFilepath(directory, this->dlcs[i].languagepacks[j].path, this->gamename, subdir, 0, this->dlcs[i].gamename, this->title, this->dlcs[i].title);
             this->dlcs[i].languagepacks[j].setFilepath(filepath);
         }
     }
